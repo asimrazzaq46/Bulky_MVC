@@ -15,9 +15,12 @@ public class UnitOfWork : IUnitOfWork
    public ApplicationDbContext _db;
     public ICategoryRepositery Category { get; private set; }
 
+    public IProductRepositery Product { get; private set; }
+
     public UnitOfWork(ApplicationDbContext db) { 
         _db = db;
         Category = new CategoryRepositery(_db);
+        Product = new ProductRepositery(_db);
     }
 
 
