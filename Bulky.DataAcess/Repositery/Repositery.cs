@@ -19,6 +19,7 @@ public class Repositery<T> : IRepositery<T> where T : class
     {
         _db = db;
         this.dbSet = _db.Set<T>();
+        _db.Products.Include(u => u.Category);
     }
 
     public void Add(T entity)
@@ -36,16 +37,32 @@ public class Repositery<T> : IRepositery<T> where T : class
         dbSet.RemoveRange(entity);
     }
 
-    public T GetOne(Expression<Func<T, bool>> filter)
+    public T GetOne(Expression<Func<T, bool>> filter, string? includeProperties = null)
     {
         IQueryable<T> query = dbSet;
         query = query.Where(filter);
+        if (!string.IsNullOrEmpty(includeProperties))
+        {
+            foreach (var property in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(property);
+            }
+        }
         return query.FirstOrDefault();
     }
 
-    public IEnumerable<T> GetAll()
+    // get the include properties like this e.g Category,CategoryId,CoverType...with "," if there are many properties 
+    public IEnumerable<T> GetAll(string? includeProperties = null)
     {
         IQueryable<T> query = dbSet;
+        if (!string.IsNullOrEmpty(includeProperties))
+        {
+            foreach (var property in includeProperties.Split(new char[] { ',' },StringSplitOptions.RemoveEmptyEntries))
+            { 
+                query = query.Include(property);
+            }
+        }
+       
         return query.ToList();
     }
 

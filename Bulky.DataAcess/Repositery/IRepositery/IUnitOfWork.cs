@@ -10,5 +10,7 @@ public interface IUnitOfWork
 {
     ICategoryRepositery Category { get; }
     IProductRepositery Product { get; }
+
+    ICompanyRepositery Company { get; }
     void Save();
 }

@@ -17,10 +17,12 @@ public class UnitOfWork : IUnitOfWork
 
     public IProductRepositery Product { get; private set; }
 
+    public ICompanyRepositery Company { get; private set; }
     public UnitOfWork(ApplicationDbContext db) { 
         _db = db;
         Category = new CategoryRepositery(_db);
         Product = new ProductRepositery(_db);
+        Company = new CompanyRepositer(_db);
     }
 
 
