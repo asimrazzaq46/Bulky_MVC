@@ -121,29 +121,7 @@ public class ProductController : Controller
     }
 
 
-    //public IActionResult Delete(int? id)
-    //{
-
-    //    if (id is null || id == 0)
-    //    {
-    //        return NotFound();
-    //    }
-
-    //    Product obj = _unitOfWork.Product.GetOne(u => u.Id == id);
-
-    //    return View(obj);
-    //}
-
-    //[HttpPost]
-    //public IActionResult Delete(Product obj)
-    //{
-    //    _unitOfWork.Product.Remove(obj);
-    //    _unitOfWork.Save();
-    //    TempData["success"] = "Product deleted Successfully";
-
-    //    return RedirectToAction("Index");
-    //}
-
+ 
     #region API CALLS 
 
     [HttpGet]

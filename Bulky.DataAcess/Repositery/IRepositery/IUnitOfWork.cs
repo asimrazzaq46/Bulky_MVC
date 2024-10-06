@@ -12,5 +12,9 @@ public interface IUnitOfWork
     IProductRepositery Product { get; }
 
     ICompanyRepositery Company { get; }
+    IShoppingCartRepositery ShoppingCart { get; }
+    IApplicationUserRepositery User { get; }
+    IOrderDetailRepositery OrderDetail { get; }
+    IOrderHeaderRepositery OrderHeader { get; }
     void Save();
 }

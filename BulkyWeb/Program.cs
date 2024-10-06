@@ -19,7 +19,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(
         GetConnectionString("DefaultConnection")
         ));
 
-
+builder.Services.Configure<StripeSetting>(builder.Configuration.GetSection("Stripe"));
 
 builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 

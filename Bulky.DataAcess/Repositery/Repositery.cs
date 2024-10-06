@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Bulky.DataAcess.Repositery;
 
@@ -37,9 +38,18 @@ public class Repositery<T> : IRepositery<T> where T : class
         dbSet.RemoveRange(entity);
     }
 
-    public T GetOne(Expression<Func<T, bool>> filter, string? includeProperties = null)
+    public T GetOne(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = false)
     {
-        IQueryable<T> query = dbSet;
+        IQueryable<T> query;
+        if (tracked)
+        {
+            query = dbSet;
+        }
+        else
+        {
+             query = dbSet.AsNoTracking();
+        }
+
         query = query.Where(filter);
         if (!string.IsNullOrEmpty(includeProperties))
         {
@@ -52,19 +62,23 @@ public class Repositery<T> : IRepositery<T> where T : class
     }
 
     // get the include properties like this e.g Category,CategoryId,CoverType...with "," if there are many properties 
-    public IEnumerable<T> GetAll(string? includeProperties = null)
+    public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter, string? includeProperties = null)
     {
         IQueryable<T> query = dbSet;
+        if(filter != null)
+        {
+        query = query.Where(filter);
+        }
         if (!string.IsNullOrEmpty(includeProperties))
         {
-            foreach (var property in includeProperties.Split(new char[] { ',' },StringSplitOptions.RemoveEmptyEntries))
-            { 
+            foreach (var property in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
                 query = query.Include(property);
             }
         }
-       
+
         return query.ToList();
     }
 
-   
+
 }

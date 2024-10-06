@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Bulky.Models.ViewModels
-{
+{ 
     public class ProductVM
     {
         public Product Product { get; set; }
