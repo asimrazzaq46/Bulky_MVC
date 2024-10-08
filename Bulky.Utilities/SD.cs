@@ -30,6 +30,8 @@ public static class SD
 	public const string Payment_Status_Rejected = "Rejected";
 
 
+	// SESSION STRING
+	public const string Session_Cart = "SessionShoppingCart";
 
 
 }
