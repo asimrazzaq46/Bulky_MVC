@@ -33,10 +33,7 @@ public class ProductRepositery : Repositery<Product>, IProductRepositery
             productFromDb.Description = obj.Description;
             productFromDb.CategoryId = obj.CategoryId;
 
-            if (productFromDb.ImageUrl != null)
-            {
-                productFromDb.ImageUrl = obj.ImageUrl;
-            }
+            
 
         }
         

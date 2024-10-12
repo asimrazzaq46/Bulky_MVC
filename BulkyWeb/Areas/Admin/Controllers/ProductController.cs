@@ -62,30 +62,30 @@ public class ProductController : Controller
         if (ModelState.IsValid)
         {
             string wwwRootPath = _webHostEnvironment.WebRootPath;
-            if(file is not null)
+            if (file is not null)
             {
                 string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                 string productPath = Path.Combine(wwwRootPath, @"images\product");
 
                 // If url of image in product is not empty in database
-                if (!string.IsNullOrEmpty(productVm.Product.ImageUrl))
-                {
-                    //Delete the old image
-                    var oldImagePath = Path.Combine(wwwRootPath, productVm.Product.ImageUrl.TrimStart('\\'));
-                    if (System.IO.File.Exists(oldImagePath))
-                    {
-                        System.IO.File.Delete(oldImagePath);
-                    }
-                }
+                //if (!string.IsNullOrEmpty(productVm.Product.ImageUrl))
+                //{
+                //    //Delete the old image
+                //    var oldImagePath = Path.Combine(wwwRootPath, productVm.Product.ImageUrl.TrimStart('\\'));
+                //    if (System.IO.File.Exists(oldImagePath))
+                //    {
+                //        System.IO.File.Delete(oldImagePath);
+                //    }
+                //}
                 //// if there was an url image we have delete in above code and we will update the new url in database
                 //// if there is not any url of image inside database then we create a new one
-                    using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
-                    {
-                        file.CopyTo(fileStream);
-                    };
+                //using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
+                //{
+                //    file.CopyTo(fileStream);
+                //};
 
-                    productVm.Product.ImageUrl = @"\images\product\" + fileName;
-                
+                //productVm.Product.ImageUrl = @"\images\product\" + fileName;
+
             }
 
             if (productVm.Product.Id==0)
@@ -144,11 +144,11 @@ public class ProductController : Controller
             return Json(new { success=false, message="Error While deleteing"});
         }
 
-        var oldImagePath = Path.Combine(wwwRootPath, productToBeDeleted.ImageUrl.TrimStart('\\'));
-        if (System.IO.File.Exists(oldImagePath))
-        {
-            System.IO.File.Delete(oldImagePath);
-        }
+        //var oldImagePath = Path.Combine(wwwRootPath, productToBeDeleted.ImageUrl.TrimStart('\\'));
+        //if (System.IO.File.Exists(oldImagePath))
+        //{
+        //    System.IO.File.Delete(oldImagePath);
+        //}
 
 
         _unitOfWork.Product.Remove(productToBeDeleted);
